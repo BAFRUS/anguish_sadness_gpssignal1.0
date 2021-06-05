@@ -93,11 +93,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //TODO
+
     private fun getNewLocation(){}
     private fun getLastLocation(){}
 
     private fun checkPermission(): Boolean{
         return true
     }
+
     private fun RequestPermission(){}
 }
