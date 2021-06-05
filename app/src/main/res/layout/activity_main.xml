@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TimePicker
+        android:id="@+id/TimePicker"
+        android:layout_width="match_parent"
+        android:layout_height="263dp"
+        android:amPmTextColor="#C82121"
+        android:backgroundTint="#FFFF0D"
+        android:headerAmPmTextAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:headerBackground="@drawable/ic_launcher_background"
+        android:numbersBackgroundColor="#B9F6CA"
+        android:numbersInnerTextColor="#040303"
+        android:numbersSelectorColor="#FF8A80"
+        android:numbersTextColor="#020202"
+        android:timePickerMode="spinner" />
+
+    <Button
+        android:id="@+id/EndAlarm"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/TimePicker"
+        android:layout_marginBottom="-172dp"
+        android:text="Off"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="11sp"
+        tools:ignore="SmallSp" />
+
+    <Button
+        android:id="@+id/btnGPS"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_alignBottom="@+id/TimePicker"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="-174dp"
+        android:layout_toStartOf="@+id/StartAlarm"
+        android:layout_toEndOf="@+id/EndAlarm"
+        android:text="gps"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/StartAlarm"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_alignEnd="@+id/TimePicker"
+        android:layout_alignBottom="@+id/TimePicker"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="-172dp"
+        android:text="ON"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/alarmTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/StartAlarm"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/txtGPS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_below="@+id/alarmTxt"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        />
+
+
+</RelativeLayout>
