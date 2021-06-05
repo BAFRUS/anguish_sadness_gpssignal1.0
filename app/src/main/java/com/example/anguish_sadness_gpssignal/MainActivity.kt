@@ -3,6 +3,8 @@ package com.example.anguish_sadness_gpssignal
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +13,7 @@ import android.widget.TimePicker
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +43,61 @@ class MainActivity : AppCompatActivity() {
         btnStart = findViewById(R.id.StartAlarm)
         btnEnd = findViewById(R.id.EndAlarm)
         btngps = findViewById(R.id.btnGPS)
-
         fusedLPC = LocationServices.getFusedLocationProviderClient(this)
+
+        var calendar: Calendar = Calendar.getInstance()
+        var myIntent: Intent = Intent(this, Receive::class.java)
+        btnStart.setOnClickListener{
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                calendar.set(Calendar.HOUR_OF_DAY,tp.hour)
+                calendar.set(Calendar.MINUTE, tp.minute)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                hour = tp.hour
+                minute = tp.minute
+            }
+            else{
+                calendar.set(Calendar.HOUR_OF_DAY,tp.currentHour)
+                calendar.set(Calendar.MINUTE, tp.currentMinute)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
+                hour = tp.currentHour
+                minute = tp.currentMinute
+            }
+
+            var hrStr: String = hour.toString()
+            var minStr: String = minute.toString()
+            if(hour > 12)
+                hrStr = (hour - 12).toString()
+            if (minute < 10)
+                minStr = "0$minute"
+            alarmTxt.setText("Будильник установлен на $hrStr:$minStr")
+
+            myIntent.putExtra("extra","on")
+
+            pi = PendingIntent.getBroadcast(this@MainActivity, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pi)
+        }
+
+        btnEnd.setOnClickListener{
+            alarmTxt.setText(R.string.txtAlarm)
+            pi = PendingIntent.getBroadcast(this@MainActivity, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            am.cancel(pi)
+            myIntent.putExtra("extra","off")
+            sendBroadcast(myIntent)
+        }
+
+        btngps.setOnClickListener{
+            getLastLocation()
+            getNewLocation()
+        }
     }
+
+    private fun getNewLocation(){}
+    private fun getLastLocation(){}
+
+    private fun checkPermission(): Boolean{
+        return true
+    }
+    private fun RequestPermission(){}
 }
